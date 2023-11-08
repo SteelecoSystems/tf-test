@@ -3,7 +3,7 @@ set -eo pipefail
 [[ $RUNNER_DEBUG || $DEBUG ]] && set -x
 
 set +e
-state_file_url="$(gh api /repos/:owner/:repo/releases/latest --jq '.assets[] | select(.name == "terraform.tfstate.gpg") | .url')"
+release_info="$(gh api /repos/:owner/:repo/releases/latest)"
 rc=$?; set -e
 
 if [[ $rc != 0 ]]; then
@@ -18,6 +18,12 @@ if [[ $rc != 0 ]]; then
   fi
 fi
 
+state_file_url="$(jq -r '.assets[] | select(.name == "terraform.tfstate.gpg") | .url' <<< "$release_info")"
+release_name="$(jq -r '.name' <<< "$release_info")"
+echo "Found release: $release_name"
 gh api -H 'Accept: application/octet-stream' "$state_file_url" | gpg --out terraform.tfstate --decrypt
+
+echo "Decrypted state file:"
+jq -r '.outputs = "<redacted>" | .resources = "<redacted>"' < terraform.tfstate
 
 
