@@ -60,7 +60,7 @@ jobs:
       - name: Terraform plan
         env:
           GITHUB_TOKEN: ${{ steps.generate-app-token.outputs.token }}
-        run: terraform plan -var-file=secrets.tfvars | tee >(ansi2txt > terraform.tfplan.log)
+        run: terraform plan | tee >(ansi2txt > terraform.tfplan.log)
       - name: Create release body
         run: |
           cat \
@@ -129,7 +129,7 @@ jobs:
       - name: Terraform apply
         env:
           GITHUB_TOKEN: ${{ steps.generate-app-token.outputs.token }}
-        run: terraform apply -var-file=secrets.tfvars -auto-approve | tee >(ansi2txt > terraform.apply.log)
+        run: terraform apply -auto-approve | tee >(ansi2txt > terraform.apply.log)
       - name: Encrypt statefile
         run: |
           # step script
