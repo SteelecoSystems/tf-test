@@ -24,11 +24,11 @@ resource "github_actions_secret" "test_secret" {
   repository = "tf-test"
 }
 
-#resource "github_actions_secret" "test_secret_2" {
-#  secret_name = "SECRET_${var.secret_name}"
-#  plaintext_value = "SECRET_${var.secret_name}"
-#  repository = "tf-test"
-#}
+resource "github_actions_secret" "test_secret_2" {
+  secret_name = "SECRET_${var.secret_name}"
+  plaintext_value = "SECRET_${var.secret_name}"
+  repository = "tf-test"
+}
 
 variable "secret_name" {
   description = "The secret name"
