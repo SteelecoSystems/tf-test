@@ -30,12 +30,6 @@ resource "github_actions_variable" "test-variable-2" {
   variable_name = "TEST_VARIABLE_2"
 }
 
-resource "github_actions_variable" "test-variable-3" {
-  repository    = "tf-test"
-  value         = "hello world"
-  variable_name = "TEST_VARIABLE_3"
-}
-
 #resource "github_actions_secret" "test_secret" {
 #  secret_name = "SECRET_NAME"
 #  plaintext_value = "SECRET_${var.secret_name}"
