@@ -21,7 +21,7 @@ provider "github" {
 resource "github_actions_variable" "test-variable" {
   repository    = "tf-test"
   value         = "hello world"
-  variable_name = "TEST VARIABLE"
+  variable_name = "TEST_VARIABLE"
 }
 
 #resource "github_actions_secret" "test_secret" {
